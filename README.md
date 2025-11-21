@@ -106,7 +106,26 @@ cd C:\path\to\scripts
 
 ## 🎯 Kullanım
 
-### Hızlı Başlangıç
+### ⚡ Hızlı Kurulum (ÖNERİLEN)
+
+**Tek komutla tüm sorunları çöz:**
+
+```powershell
+# PowerShell'i Yönetici olarak aç
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
+# Tek satırda tüm düzeltmeleri uygula
+.\install.ps1
+```
+
+Bu script:
+- ✅ top_k hatasını düzeltir
+- ✅ HTTP 429 bypass eder
+- ✅ Cache'i temizler
+- ✅ Cursor'u otomatik kapatır
+- ✅ Her adımı gösterir
+
+### 📋 Manuel Kurulum
 
 1. **Cursor IDE'yi kapatın** (önemli!)
 2. PowerShell'i **Yönetici olarak** açın
@@ -118,30 +137,12 @@ cd C:\path\to\scripts
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 # İstediğiniz scripti çalıştırın
-.\fix_cursor_top_k.ps1
-# veya
-.\fix_cursor_rate_limit.ps1
-# veya
-.\remove_gemini_rate_limit.ps1
-# veya (ÖNERİLEN - en güvenli)
-.\bypass_gemini_safe.ps1
-```
-
-5. Cursor'u yeniden başlatın
-
-### ⚡ Hızlı Çözüm (Tüm Sorunlar İçin)
-
-```powershell
-# Tek seferde tüm düzeltmeleri uygula
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-
-# Sırayla çalıştır
 .\fix_cursor_top_k.ps1              # top_k hatası
 .\bypass_gemini_safe.ps1            # Rate limit bypass (ÖNERİLEN)
 .\fix_cursor_rate_limit.ps1         # Cache temizle
-
-# Cursor'u aç ve test et!
 ```
+
+5. Cursor'u yeniden başlatın
 
 ---
 
@@ -550,10 +551,10 @@ Mevcut scriptleri iyileştirmek için:
 
 | Script | Dosya Boyutu | Satır Sayısı | Etkilenen Dosya |
 |--------|-------------|-------------|----------------|
+| `install.ps1` | ~2.5 KB | 50 satır | Tüm scriptleri çalıştırır |
 | `fix_cursor_top_k.ps1` | ~1.5 KB | 33 satır | workbench.desktop.main.js (~27 MB) |
 | `fix_cursor_rate_limit.ps1` | ~2.4 KB | 54 satır | state.vscdb + Cache |
-| `remove_gemini_rate_limit.ps1` | ~4.5 KB | 86 satır | workbench.desktop.main.js (~27 MB) |
-| `bypass_gemini_safe.ps1` | ~2.8 KB | 87 satır | workbench.desktop.main.js (~27 MB) |
+| `bypass_gemini_safe.ps1` | ~3.8 KB | 87 satır | workbench.desktop.main.js (~27 MB) |
 
 ---
 
