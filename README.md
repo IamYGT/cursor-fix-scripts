@@ -4,99 +4,99 @@
 [![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)](https://github.com/PowerShell/PowerShell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-> **Cursor IDE'deki sinir bozucu sorunları çözen PowerShell scriptleri koleksiyonu**
+> **A collection of PowerShell scripts to fix annoying issues in Cursor IDE**
 
-Bu repo, Cursor IDE kullanırken karşılaşılan yaygın sorunları otomatik olarak çözen, test edilmiş ve güvenli PowerShell scriptleri içerir.
-
----
-
-## 📑 İçindekiler
-
-- [Özellikler](#-özellikler)
-- [Sorunlar ve Çözümler](#-sorunlar-ve-çözümler)
-- [Kurulum](#-kurulum)
-- [Kullanım](#-kullanım)
-- [Script Detayları](#-script-detayları)
-- [Güvenlik](#-güvenlik)
-- [Sorun Giderme](#-sorun-giderme)
-- [Katkıda Bulunma](#-katkıda-bulunma)
-- [Lisans](#-lisans)
+This repository contains tested and safe PowerShell scripts that automatically fix common problems encountered while using Cursor IDE.
 
 ---
 
-## ✨ Özellikler
+## 📑 Table of Contents
 
-- ✅ **Otomatik Yedekleme**: Her script çalıştırılmadan önce otomatik yedek oluşturur
-- ✅ **Güvenli İşlem**: Cursor'un kapalı olduğunu kontrol eder
-- ✅ **Detaylı Loglama**: Her adımda renkli ve açıklayıcı çıktı
-- ✅ **Kolay Kullanım**: Tek satır komutla çalıştırma
-- ✅ **Geri Alınabilir**: Yedek dosyalarla kolayca eski haline döndürme
+- [Features](#-features)
+- [Problems and Solutions](#-problems-and-solutions)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Script Details](#-script-details)
+- [Security](#-security)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
-## 🐛 Sorunlar ve Çözümler
+## ✨ Features
 
-### 1️⃣ Google Gemini API `top_k` Hatası
+- ✅ **Automatic Backup**: Creates automatic backups before each script runs
+- ✅ **Safe Operation**: Checks if Cursor is closed
+- ✅ **Detailed Logging**: Colorful and descriptive output at every step
+- ✅ **Easy to Use**: Run with a single command
+- ✅ **Reversible**: Easy restoration with backup files
 
-**Sorun:**
+---
+
+## 🐛 Problems and Solutions
+
+### 1️⃣ Google Gemini API `top_k` Error
+
+**Problem:**
 ```
 Error: top_k (-1) must not be set or must be a positive integer
 ```
 
-**Sebep:** Cursor, Google Gemini API'ye geçersiz `top_k` parametresi gönderiyor.
+**Cause:** Cursor sends invalid `top_k` parameter to Google Gemini API.
 
-**Çözüm:** [`fix_cursor_top_k.ps1`](#1-fix_cursor_top_kps1)
+**Solution:** [`fix_cursor_top_k.ps1`](#1-fix_cursor_top_kps1)
 
 ---
 
-### 2️⃣ User API Key Rate Limit Hatası
+### 2️⃣ User API Key Rate Limit Error
 
-**Sorun:**
+**Problem:**
 ```
 User API Key Rate limit exceeded
 ```
 
-**Sebep:** Cursor'un state database'inde biriken rate limit bilgileri.
+**Cause:** Rate limit information accumulated in Cursor's state database.
 
-**Çözüm:** [`fix_cursor_rate_limit.ps1`](#2-fix_cursor_rate_limitps1)
-
----
-
-### 3️⃣ Gemini API Yapay Rate Limiti
-
-**Sorun:** Cursor, Gemini API için kasıtlı olarak rate limit koyuyor, bu da kullanımı kısıtlıyor.
-
-**Sebep:** Cursor'un workbench dosyasındaki rate limit kontrolleri.
-
-**Çözüm:** [`remove_gemini_rate_limit.ps1`](#3-remove_gemini_rate_limitps1)
+**Solution:** [`fix_cursor_rate_limit.ps1`](#2-fix_cursor_rate_limitps1)
 
 ---
 
-### 4️⃣ Gemini HTTP 429 Rate Limit Hatası
+### 3️⃣ Gemini API Artificial Rate Limit
 
-**Sorun:** Gemini API kullanırken sürekli "429 Too Many Requests" hatası alınıyor.
+**Problem:** Cursor intentionally imposes rate limits on Gemini API, restricting usage.
 
-**Sebep:** Cursor, HTTP 429 status kodunu yakalayıp rate limit hatası fırlatıyor.
+**Cause:** Rate limit controls in Cursor's workbench file.
 
-**Çözüm:** [`bypass_gemini_safe.ps1`](#4-bypass_gemini_safeps1)
+**Solution:** [`remove_gemini_rate_limit.ps1`](#3-remove_gemini_rate_limitps1)
 
 ---
 
-## 📥 Kurulum
+### 4️⃣ Gemini HTTP 429 Rate Limit Error
 
-### Yöntem 1: Git ile Clone
+**Problem:** Constantly receiving "429 Too Many Requests" error when using Gemini API.
+
+**Cause:** Cursor catches HTTP 429 status code and throws rate limit error.
+
+**Solution:** [`bypass_gemini_safe.ps1`](#4-bypass_gemini_safeps1)
+
+---
+
+## 📥 Installation
+
+### Method 1: Clone with Git
 
 ```powershell
-git clone https://github.com/yourusername/cursor-fix-scripts.git
+git clone https://github.com/IamYGT/cursor-fix-scripts.git
 cd cursor-fix-scripts
 ```
 
-### Yöntem 2: Manuel İndirme
+### Method 2: Manual Download
 
-1. Bu repo'dan scriptleri indirin
-2. İstediğiniz bir klasöre kaydedin
-3. PowerShell'i **Yönetici olarak** açın
-4. Script klasörüne gidin:
+1. Download the scripts from this repository
+2. Save them to a folder of your choice
+3. Open PowerShell **as Administrator**
+4. Navigate to the script folder:
 
 ```powershell
 cd C:\path\to\scripts
@@ -104,68 +104,68 @@ cd C:\path\to\scripts
 
 ---
 
-## 🎯 Kullanım
+## 🎯 Usage
 
-### ⚡ Hızlı Kurulum (ÖNERİLEN)
+### ⚡ Quick Installation (RECOMMENDED)
 
-**Tek komutla tüm sorunları çöz:**
+**Fix all issues with one command:**
 
 ```powershell
-# PowerShell'i Yönetici olarak aç
+# Open PowerShell as Administrator
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-# Tek satırda tüm düzeltmeleri uygula
+# Apply all fixes in one line
 .\install.ps1
 ```
 
-Bu script:
-- ✅ top_k hatasını düzeltir
-- ✅ HTTP 429 bypass eder
-- ✅ Cache'i temizler
-- ✅ Cursor'u otomatik kapatır
-- ✅ Her adımı gösterir
+This script:
+- ✅ Fixes top_k error
+- ✅ Bypasses HTTP 429
+- ✅ Clears cache
+- ✅ Automatically closes Cursor
+- ✅ Shows each step
 
-### 📋 Manuel Kurulum
+### 📋 Manual Installation
 
-1. **Cursor IDE'yi kapatın** (önemli!)
-2. PowerShell'i **Yönetici olarak** açın
-3. Script klasörüne gidin
-4. İlgili scripti çalıştırın
+1. **Close Cursor IDE** (important!)
+2. Open PowerShell **as Administrator**
+3. Navigate to script folder
+4. Run the desired script
 
 ```powershell
-# Execution policy'yi ayarla (güvenlik)
+# Set execution policy (security)
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-# İstediğiniz scripti çalıştırın
-.\fix_cursor_top_k.ps1              # top_k hatası
-.\bypass_gemini_safe.ps1            # Rate limit bypass (ÖNERİLEN)
-.\fix_cursor_rate_limit.ps1         # Cache temizle
+# Run the script you need
+.\fix_cursor_top_k.ps1              # top_k error
+.\bypass_gemini_safe.ps1            # Rate limit bypass (RECOMMENDED)
+.\fix_cursor_rate_limit.ps1         # Clear cache
 ```
 
-5. Cursor'u yeniden başlatın
+5. Restart Cursor
 
 ---
 
-## 📜 Script Detayları
+## 📜 Script Details
 
 ### 1. `fix_cursor_top_k.ps1`
 
-**Ne Yapar:**
-- Cursor'un `workbench.desktop.main.js` dosyasını düzenler
-- Google Gemini API çağrılarından geçersiz `top_k` parametresini kaldırır
-- Otomatik yedek oluşturur
+**What it does:**
+- Edits Cursor's `workbench.desktop.main.js` file
+- Removes invalid `top_k` parameter from Google Gemini API calls
+- Creates automatic backup
 
-**Düzenlediği Dosya:**
+**Edited File:**
 ```
 %LOCALAPPDATA%\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js
 ```
 
-**Çalıştırma:**
+**Run:**
 ```powershell
 .\fix_cursor_top_k.ps1
 ```
 
-**Çıktı Örneği:**
+**Example Output:**
 ```
 Creating backup...
 Reading file...
@@ -176,7 +176,7 @@ Done! Restart Cursor to apply changes.
 Backup saved at: workbench.desktop.main.js.backup
 ```
 
-**Pattern'ler:**
+**Patterns:**
 - `{temperature:x,top_k:y,top_p:z}` → `{temperature:x,top_p:z}`
 - `{top_k:x,temperature:y}` → `{temperature:y}`
 - `{top_k:x}` → `{}`
@@ -185,543 +185,496 @@ Backup saved at: workbench.desktop.main.js.backup
 
 ### 2. `fix_cursor_rate_limit.ps1`
 
-**Ne Yapar:**
-- Cursor'un state database'ini temizler
-- Cache dosyalarını siler
-- Rate limit bilgilerini sıfırlar
+**What it does:**
+- Clears Cursor's state database
+- Deletes cache files
+- Resets rate limit information
 
-**Temizlediği Dosyalar:**
+**Cleaned Files:**
 ```
 %APPDATA%\Cursor\User\globalStorage\state.vscdb
 %APPDATA%\Cursor\Cache\
 %APPDATA%\Cursor\Code Cache\
 ```
 
-**Çalıştırma:**
+**Run:**
 ```powershell
 .\fix_cursor_rate_limit.ps1
 ```
 
-**Çıktı Örneği:**
+**Example Output:**
 ```
-Cursor Rate Limit Temizleyici
+Cursor Rate Limit Cleaner
 ================================
 
-[1/3] State database yedekleniyor...
-State database temizlendi!
+[1/3] Backing up state database...
+State database cleared!
 
-[2/3] Cache dosyaları temizleniyor...
-Cache temizlendi!
+[2/3] Clearing cache files...
+Cache cleared!
 
-[3/3] Code Cache temizleniyor...
-Code Cache temizlendi!
+[3/3] Clearing Code Cache...
+Code Cache cleared!
 
 ================================
-Tamamlandı!
+Complete!
 
-Yedek dosyalar: C:\Users\YourName\cursor_rate_limit_backup_20251121_231325
+Backup files: C:\Users\YourName\cursor_rate_limit_backup_20251121_231325
 
-Cursor'u yeniden başlatabilirsiniz.
-Rate limit hatası düzelmiş olmalı.
+You can restart Cursor now.
+Rate limit error should be fixed.
 ```
 
-**Özellikler:**
-- ✅ Cursor'un çalışıp çalışmadığını kontrol eder
-- ✅ Otomatik kapatma önerisi yapar
-- ✅ Timestamp'li yedek klasörü oluşturur
+**Features:**
+- ✅ Checks if Cursor is running
+- ✅ Offers automatic shutdown
+- ✅ Creates timestamped backup folder
 
 ---
 
-### 3. `remove_gemini_rate_limit.ps1`
+### 3. `bypass_gemini_safe.ps1`
 
-**Ne Yapar:**
-- Cursor'un workbench dosyasındaki rate limit kontrollerini devre dışı bırakır
-- API throttling mekanizmalarını kaldırır
-- Request delay'lerini iptal eder
+**What it does:**
+- Bypasses HTTP 429 checks in Cursor's workbench file
+- Changes rate limit status code to one that will never trigger
+- Uses binary-safe encoding (file doesn't corrupt)
 
-**Düzenlediği Dosya:**
+**Edited File:**
 ```
 %LOCALAPPDATA%\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js
 ```
 
-**Çalıştırma:**
-```powershell
-.\remove_gemini_rate_limit.ps1
-```
-
-**Çıktı Örneği:**
-```
-Cursor Gemini Rate Limit Kaldırıcı
-=====================================
-
-[1/3] Yedek oluşturuluyor...
-Yedek oluşturuldu: workbench.desktop.main.js.backup_20251121_231510
-
-[2/3] Dosya okunuyor...
-Orijinal dosya boyutu: 27716300 bytes
-
-[3/3] Rate limit kontrolleri kaldırılıyor...
-Değiştirilmiş dosya boyutu: 27716408 bytes
-
-Dosya yazılıyor...
-
-=====================================
-Tamamlandı!
-
-Yapılan değişiklikler:
-  • Rate limit kontrolleri devre dışı bırakıldı
-  • Rate limit error mesajları engellendi
-  • Rate limit değerleri maksimuma çıkarıldı
-  • Gemini API throttling kaldırıldı
-  • Request delay mekanizmaları kaldırıldı
-
-Cursor'u yeniden başlatın!
-Rate limit artık uygulanmayacak.
-```
-
-**Pattern'ler:**
-```powershell
-# Rate limit kontrollerini bypass et
-if(rateLimit) { throw error } → if(false) { throw error }
-
-# Error mesajlarını yorum satırına çevir
-throw new Error('rate limit') → // throw new Error('rate limit')
-
-# Rate limit değerlerini maksimize et
-const rateLimit = 60 → const rateLimit = 999999
-
-# Delay mekanizmalarını kaldır
-await delay(1000) → // await delay(1000)
-
-# Request counter'ları devre dışı bırak
-requestCount++ → // requestCount++
-```
-
----
-
-### 4. `bypass_gemini_safe.ps1`
-
-**Ne Yapar:**
-- Cursor'un workbench dosyasında HTTP 429 kontrollerini bypass eder
-- Rate limit status kodunu hiçbir zaman tetiklenmeyecek koda çevirir
-- Binary-safe encoding kullanır (dosya bozulmaz)
-
-**Düzenlediği Dosya:**
-```
-%LOCALAPPDATA%\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js
-```
-
-**Çalıştırma:**
+**Run:**
 ```powershell
 .\bypass_gemini_safe.ps1
 ```
 
-**Çıktı Örneği:**
+**Example Output:**
 ```
 ═══════════════════════════════════════════════════
   Google Gemini Rate Limit BYPASS (Safe Mode)
 ═══════════════════════════════════════════════════
 
-Cursor kapatılıyor...
-[1/3] Yedek oluşturuluyor...
-  ✓ Yedek oluşturuldu
+Closing Cursor...
+[1/3] Creating backup...
+  ✓ Backup created
 
-[2/3] Dosya düzenleniyor...
-  Orijinal: 26.43 MB
-  ✓ statusCode===429 bypass edildi
-  ✓ case 429 bypass edildi
+[2/3] Editing file...
+  Original: 26.43 MB
+  ✓ statusCode===429 bypassed
+  ✓ case 429 bypassed
 
-[3/3] Dosya yazılıyor...
-  ✓ Yazıldı: 26.43 MB
+[3/3] Writing file...
+  ✓ Written: 26.43 MB
 
 ═══════════════════════════════════════════════════
-              ✓ BYPASS TAMAMLANDI!          
+              ✓ BYPASS COMPLETE!          
 ═══════════════════════════════════════════════════
 
-📊 ÖZET:
-  • Orijinal: 26.43 MB
-  • Yeni: 26.43 MB
-  • Değişiklik: 2
+📊 SUMMARY:
+  • Original: 26.43 MB
+  • New: 26.43 MB
+  • Changes: 2
 
 🔧 HTTP 429 (Rate Limit) -> 999 (bypass)
 
-🚀 Cursor'u başlatın!
-✨ Gemini rate limit artık tetiklenmeyecek!
+🚀 Start Cursor!
+✨ Gemini rate limit won't trigger anymore!
 ```
 
-**Pattern'ler:**
+**Patterns:**
 ```powershell
-# HTTP 429 status kodunu bypass et
+# Bypass HTTP 429 status code
 .statusCode===429 → .statusCode===999
 .status===429 → .status===999
 
-# Switch case'leri bypass et
+# Bypass switch cases
 case 429: → case 999:
 ```
 
-**Özellikler:**
-- ✅ Binary-safe okuma/yazma (encoding sorunu yok)
-- ✅ Minimal değişiklik (sadece 2-3 yer)
-- ✅ Dosya boyutu değişmez
-- ✅ En güvenli yöntem
+**Features:**
+- ✅ Binary-safe read/write (no encoding issues)
+- ✅ Minimal changes (only 2-3 places)
+- ✅ File size doesn't change
+- ✅ Safest method
 
 ---
 
-## 🔒 Güvenlik
+### 4. `install.ps1`
 
-### Script Güvenliği
+**What it does:**
+- Runs all fix scripts in one go
+- Automatically closes Cursor
+- Shows progress for each step
+- Most user-friendly option
 
-✅ **Kaynak Kodu Açık**: Tüm scriptleri inceleyebilirsiniz  
-✅ **Otomatik Yedekleme**: Her zaman geri dönebilirsiniz  
-✅ **Zararsız İşlemler**: Sadece Cursor dosyalarını düzenler  
-✅ **Bilinen Pattern'ler**: Sadoc güvenli regex kullanır
+**Run:**
+```powershell
+.\install.ps1
+```
+
+**Features:**
+- ✅ Fixes all issues at once
+- ✅ Automatic Cursor shutdown
+- ✅ Progress indicators
+- ✅ Error handling
+
+---
+
+## 🔒 Security
+
+### Script Security
+
+✅ **Open Source**: You can review all scripts  
+✅ **Automatic Backup**: You can always restore  
+✅ **Harmless Operations**: Only edits Cursor files  
+✅ **Known Patterns**: Uses only safe regex
 
 ### Execution Policy
 
-Script çalıştırmadan önce:
+Before running scripts:
 
 ```powershell
-# Sadece bu session için izin ver (önerilen)
+# Allow for this session only (recommended)
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-# veya tüm kullanıcı için
+# Or for current user
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
 ```
 
-### Yedekleri Geri Yükleme
+### Restoring Backups
 
-**Yöntem 1: Manuel Geri Yükleme**
+**Method 1: Manual Restore**
 
 ```powershell
-# workbench.desktop.main.js için
+# For workbench.desktop.main.js
 Copy-Item -Path "$env:LOCALAPPDATA\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js.backup" `
           -Destination "$env:LOCALAPPDATA\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js" `
           -Force
 
-# State database için
+# For State database
 Copy-Item -Path "C:\Users\YourName\cursor_rate_limit_backup_YYYYMMDD_HHMMSS\state.vscdb.backup" `
           -Destination "$env:APPDATA\Cursor\User\globalStorage\state.vscdb" `
           -Force
 ```
 
-**Yöntem 2: Cursor'u Yeniden Yükle**
+**Method 2: Reinstall Cursor**
 
-En son çare olarak Cursor'u tamamen kaldırıp yeniden yükleyin.
+As a last resort, completely uninstall and reinstall Cursor.
 
 ---
 
-## 🔧 Sorun Giderme
+## 🔧 Troubleshooting
 
-### "Script çalışmıyor"
+### "Script not running"
 
-**Çözüm:**
+**Solution:**
 ```powershell
-# Execution policy'yi kontrol et
+# Check execution policy
 Get-ExecutionPolicy
 
-# Bypass yap
+# Bypass
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 ```
 
 ---
 
-### "Workbench dosyası bulunamadı"
+### "Workbench file not found"
 
-**Çözüm:**
-1. Cursor'un kurulu olduğundan emin olun
-2. Standart dışı konuma kurduysanız script'i düzenleyin:
+**Solution:**
+1. Make sure Cursor is installed
+2. If installed to non-standard location, edit the script:
 
 ```powershell
-# Script içindeki path'i değiştirin
+# Change path in script
 $workbenchPath = "C:\CustomPath\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js"
 ```
 
 ---
 
-### "Cursor güncellemesinden sonra sorunlar tekrar geldi"
+### "Problems returned after Cursor update"
 
-**Sebep:** Cursor güncellemesi workbench dosyasını değiştiriyor.
+**Cause:** Cursor update changes the workbench file.
 
-**Çözüm:** İlgili scripti tekrar çalıştırın.
-
----
-
-### "Değişiklikler uygulanmadı"
-
-**Kontrol Listesi:**
-1. ✅ Cursor tamamen kapalı mı?
-2. ✅ PowerShell yönetici olarak mı açıldı?
-3. ✅ Script başarıyla tamamlandı mı?
-4. ✅ Cursor yeniden başlatıldı mı?
+**Solution:** Run the relevant script again.
 
 ---
 
-### "Dosya boyutu çok büyüdü"
+### "Changes not applied"
 
-**Sebep:** Encoding sorunu - UTF-8 BOM eklenmiş olabilir.
+**Checklist:**
+1. ✅ Is Cursor completely closed?
+2. ✅ Was PowerShell opened as administrator?
+3. ✅ Did script complete successfully?
+4. ✅ Was Cursor restarted?
 
-**Çözüm:** 
-1. Yedeği geri yükleyin
-2. `bypass_gemini_safe.ps1` kullanın (binary-safe)
+---
+
+### "File size increased too much"
+
+**Cause:** Encoding issue - UTF-8 BOM added.
+
+**Solution:** 
+1. Restore backup
+2. Use `bypass_gemini_safe.ps1` (binary-safe)
 
 ```powershell
-# Yedekten geri yükle
+# Restore from backup
 $workbenchPath = "$env:LOCALAPPDATA\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js"
-$backupPath = "$workbenchPath.backup"  # En son yedek
+$backupPath = "$workbenchPath.backup"  # Latest backup
 Copy-Item -Path $backupPath -Destination $workbenchPath -Force
 ```
 
 ---
 
-### "Rate limit hala devam ediyor"
+### "Rate limit still continues"
 
-**Çözüm Sırası:**
-1. **State database temizleyin**: `fix_cursor_rate_limit.ps1`
+**Solution Order:**
+1. **Clean state database**: `fix_cursor_rate_limit.ps1`
 2. **HTTP 429 bypass**: `bypass_gemini_safe.ps1`
-3. **Cursor'u tamamen kapatıp açın**
-4. **Gemini API key'inizi yeniden girin**
+3. **Completely close and reopen Cursor**
+4. **Re-enter your Gemini API key**
 
-**Kombo Çözüm:**
+**Combo Solution:**
 ```powershell
-# 1. Cache ve state temizle
+# 1. Clear cache and state
 .\fix_cursor_rate_limit.ps1
 
 # 2. HTTP 429 bypass
 .\bypass_gemini_safe.ps1
 
-# 3. top_k hatası düzelt
+# 3. Fix top_k error
 .\fix_cursor_top_k.ps1
 
-# 4. Cursor'u aç
+# 4. Open Cursor
 ```
 
 ---
 
-## 🤝 Katkıda Bulunma
+## 🤝 Contributing
 
-Katkılarınızı bekliyoruz! İşte nasıl katkıda bulunabilirsiniz:
+We welcome your contributions! Here's how you can contribute:
 
-### 1. Yeni Sorun Bildir
+### 1. Report New Issue
 
-[Issues](https://github.com/yourusername/cursor-fix-scripts/issues) bölümünden yeni sorun bildirin.
+Report new issues from [Issues](https://github.com/IamYGT/cursor-fix-scripts/issues) section.
 
-**Şablon:**
+**Template:**
 ```markdown
-**Sorun:**
-[Hata mesajını buraya yazın]
+**Problem:**
+[Write error message here]
 
-**Cursor Versiyonu:**
-[Örn: 0.42.3]
+**Cursor Version:**
+[e.g., 0.42.3]
 
-**Windows Versiyonu:**
-[Örn: Windows 11 23H2]
+**Windows Version:**
+[e.g., Windows 11 23H2]
 
-**Adımlar:**
-1. [Sorunu nasıl tekrarladığınızı açıklayın]
+**Steps:**
+1. [Explain how you reproduced the problem]
 ```
 
-### 2. Pull Request Gönderin
+### 2. Submit Pull Request
 
 ```bash
-# Fork edin
-git fork https://github.com/yourusername/cursor-fix-scripts
+# Fork
+git fork https://github.com/IamYGT/cursor-fix-scripts
 
-# Branch oluşturun
-git checkout -b feature/yeni-cozum
+# Create branch
+git checkout -b feature/new-solution
 
-# Değişiklikleri commit edin
-git commit -m "feat: yeni sorun için çözüm eklendi"
+# Commit changes
+git commit -m "feat: solution added for new problem"
 
-# Push edin
-git push origin feature/yeni-cozum
+# Push
+git push origin feature/new-solution
 
-# Pull request açın
+# Open pull request
 ```
 
-### 3. Script İyileştirmeleri
+### 3. Script Improvements
 
-Mevcut scriptleri iyileştirmek için:
-- Daha iyi pattern'ler önerin
-- Performans optimizasyonları yapın
-- Hata yönetimini geliştirin
-
----
-
-## 📊 İstatistikler
-
-| Script | Dosya Boyutu | Satır Sayısı | Etkilenen Dosya |
-|--------|-------------|-------------|----------------|
-| `install.ps1` | ~2.5 KB | 50 satır | Tüm scriptleri çalıştırır |
-| `fix_cursor_top_k.ps1` | ~1.5 KB | 33 satır | workbench.desktop.main.js (~27 MB) |
-| `fix_cursor_rate_limit.ps1` | ~2.4 KB | 54 satır | state.vscdb + Cache |
-| `bypass_gemini_safe.ps1` | ~3.8 KB | 87 satır | workbench.desktop.main.js (~27 MB) |
+To improve existing scripts:
+- Suggest better patterns
+- Make performance optimizations
+- Improve error handling
 
 ---
 
-## 🎓 Teknik Detaylar
+## 📊 Statistics
 
-### Regex Pattern Açıklamaları
+| Script | File Size | Line Count | Affected File |
+|--------|-----------|------------|---------------|
+| `install.ps1` | ~2.5 KB | 50 lines | Runs all scripts |
+| `fix_cursor_top_k.ps1` | ~1.5 KB | 33 lines | workbench.desktop.main.js (~27 MB) |
+| `fix_cursor_rate_limit.ps1` | ~2.4 KB | 54 lines | state.vscdb + Cache |
+| `bypass_gemini_safe.ps1` | ~3.8 KB | 87 lines | workbench.desktop.main.js (~27 MB) |
 
-#### Pattern 1: `top_k` Kaldırma
+---
+
+## 🎓 Technical Details
+
+### Regex Pattern Explanations
+
+#### Pattern 1: `top_k` Removal
 ```powershell
 ',\s*top_k\s*:\s*[^,}]+'
 ```
-- `,` : Virgül ile başlayan
-- `\s*` : 0 veya daha fazla boşluk
-- `top_k` : "top_k" metni
-- `\s*:\s*` : Boşluklu veya boşluksuz iki nokta
-- `[^,}]+` : Virgül veya } karakteri olmayan herhangi bir karakter
+- `,` : Starting with comma
+- `\s*` : 0 or more spaces
+- `top_k` : "top_k" text
+- `\s*:\s*` : Colon with or without spaces
+- `[^,}]+` : Any character except comma or }
 
-#### Pattern 2: Rate Limit Kontrolü Devre Dışı
+#### Pattern 2: Rate Limit Control Disable
 ```powershell
 '(if\s*\([^)]*rate.?limit[^)]*\))\s*{([^}]*throw[^}]*)}' → 'if(false){$2}'
 ```
-- `if\s*\(` : "if" ile açılan parantez
-- `[^)]*rate.?limit[^)]*` : "rate limit" içeren koşul
-- `{([^}]*throw[^}]*)}` : "throw" içeren blok
-- `if(false)` : Koşulu her zaman false yap
+- `if\s*\(` : "if" with opening parenthesis
+- `[^)]*rate.?limit[^)]*` : Condition containing "rate limit"
+- `{([^}]*throw[^}]*)}` : Block containing "throw"
+- `if(false)` : Make condition always false
 
 ---
 
-## 🌟 Popüler Kullanım Senaryoları
+## 🌟 Popular Usage Scenarios
 
-### Senaryo 1: İlk Kurulum (Önerilen)
+### Scenario 1: Initial Installation (Recommended)
 ```powershell
-# Tam koruma paketi
-.\fix_cursor_top_k.ps1              # top_k hatası düzelt
+# Full protection package
+.\fix_cursor_top_k.ps1              # Fix top_k error
 .\bypass_gemini_safe.ps1            # HTTP 429 bypass
-.\fix_cursor_rate_limit.ps1         # Cache temizle
+.\fix_cursor_rate_limit.ps1         # Clear cache
 ```
 
-### Senaryo 2: Güncellemeden Sonra
+### Scenario 2: After Update
 ```powershell
-# Sadece workbench scriptlerini tekrar çalıştır
+# Re-run only workbench scripts
 .\fix_cursor_top_k.ps1
 .\bypass_gemini_safe.ps1
 ```
 
-### Senaryo 3: Sadece Rate Limit Sorunu
+### Scenario 3: Rate Limit Problem Only
 ```powershell
-# İki aşamalı çözüm
-.\fix_cursor_rate_limit.ps1         # State database temizle
+# Two-step solution
+.\fix_cursor_rate_limit.ps1         # Clear state database
 .\bypass_gemini_safe.ps1            # HTTP 429 bypass
 ```
 
-### Senaryo 4: Gemini Kullanmıyorum
+### Scenario 4: Not Using Gemini
 ```powershell
-# Sadece temel düzeltmeler
+# Only basic fixes
 .\fix_cursor_top_k.ps1
 .\fix_cursor_rate_limit.ps1
 ```
 
 ---
 
-## 📚 Referanslar
+## 📚 References
 
-- [Cursor IDE Resmi Dokümantasyon](https://cursor.sh/docs)
-- [Google Gemini API Dokümantasyon](https://ai.google.dev/docs)
-- [PowerShell Dokümantasyon](https://docs.microsoft.com/powershell)
-
----
-
-## 🛠️ Gereksinimler
-
-- **Windows 10/11**: (Windows 8.1+ da çalışabilir)
-- **PowerShell 5.1+**: (Varsayılan olarak yüklü)
-- **Cursor IDE**: Herhangi bir versiyon
-- **Yönetici Yetkisi**: Script çalıştırmak için
+- [Cursor IDE Official Documentation](https://cursor.sh/docs)
+- [Google Gemini API Documentation](https://ai.google.dev/docs)
+- [PowerShell Documentation](https://docs.microsoft.com/powershell)
 
 ---
 
-## 🔄 Güncelleme Geçmişi
+## 🛠️ Requirements
+
+- **Windows 10/11**: (Windows 8.1+ might work)
+- **PowerShell 5.1+**: (Pre-installed by default)
+- **Cursor IDE**: Any version
+- **Administrator Rights**: To run scripts
+
+---
+
+## 🔄 Update History
 
 ### v1.1.0 (2025-11-21)
-- 🎯 **YENİ**: `bypass_gemini_safe.ps1` eklendi (ÖNERİLEN)
+- 🎯 **NEW**: `bypass_gemini_safe.ps1` added (RECOMMENDED)
 - ✅ HTTP 429 rate limit bypass - binary-safe
-- ✅ Encoding sorunu çözüldü
-- 📝 README güncellendi (bypass script dahil)
-- 🔧 Tüm senaryolar için kullanım örnekleri
+- ✅ Encoding issue fixed
+- 📝 README updated (bypass script included)
+- 🔧 Usage examples for all scenarios
 
 ### v1.0.0 (2025-11-21)
-- ✨ İlk sürüm yayınlandı
-- ✅ `fix_cursor_top_k.ps1` eklendi
-- ✅ `fix_cursor_rate_limit.ps1` eklendi
-- ✅ `remove_gemini_rate_limit.ps1` eklendi
-- 📝 Detaylı README hazırlandı
+- ✨ Initial release
+- ✅ `fix_cursor_top_k.ps1` added
+- ✅ `fix_cursor_rate_limit.ps1` added
+- ✅ `remove_gemini_rate_limit.ps1` added
+- 📝 Detailed README prepared
 
 ---
 
-## ❓ SSS (Sık Sorulan Sorular)
+## ❓ FAQ (Frequently Asked Questions)
 
-### Scriptler zararlı mı?
+### Are the scripts harmful?
 
-**Hayır.** Tüm scriptler açık kaynak ve incelenebilir. Sadece Cursor'un konfigürasyon dosyalarını düzenler ve otomatik yedek alır.
+**No.** All scripts are open source and reviewable. They only edit Cursor's configuration files and create automatic backups.
 
-### Cursor güncellemesi scriptleri bozar mı?
+### Does Cursor update break the scripts?
 
-**Evet, bazı güncellemelerde.** Cursor güncellendiğinde `workbench.desktop.main.js` dosyası değişir. Bu durumda scriptleri tekrar çalıştırmanız yeterli.
+**Yes, in some updates.** When Cursor is updated, the `workbench.desktop.main.js` file changes. In this case, running the scripts again is sufficient.
 
-### Scriptler diğer IDE'lerde çalışır mı?
+### Do the scripts work on other IDEs?
 
-**Hayır.** Bu scriptler özellikle Cursor IDE için tasarlanmıştır. VS Code, VS Code forkları veya diğer IDE'lerde çalışmaz.
+**No.** These scripts are specifically designed for Cursor IDE. They don't work on VS Code, VS Code forks, or other IDEs.
 
-### Linux/macOS desteği var mı?
+### Is there Linux/macOS support?
 
-**Şu anda hayır.** Bu scriptler Windows PowerShell için yazılmıştır. Ancak bash versiyonları kolayca uyarlanabilir. Katkıda bulunmak isterseniz pull request gönderin!
+**Not currently.** These scripts are written for Windows PowerShell. However, bash versions can be easily adapted. If you want to contribute, send a pull request!
 
-### Scriptler lisanslı mı?
+### Are the scripts licensed?
 
-**MIT Lisansı.** Özgürce kullanabilir, değiştirebilir ve dağıtabilirsiniz.
+**MIT License.** You can freely use, modify, and distribute.
 
-### Hangi scripti kullanmalıyım?
+### Which script should I use?
 
-**Gemini kullanıyorsanız (ÖNERİLEN):**
-1. `bypass_gemini_safe.ps1` - HTTP 429 bypass (en güvenli)
-2. `fix_cursor_top_k.ps1` - top_k hatası düzelt
-3. `fix_cursor_rate_limit.ps1` - Cache temizle
+**If you're using Gemini (RECOMMENDED):**
+1. `bypass_gemini_safe.ps1` - HTTP 429 bypass (safest)
+2. `fix_cursor_top_k.ps1` - Fix top_k error
+3. `fix_cursor_rate_limit.ps1` - Clear cache
 
-**Sadece top_k sorunu varsa:**
+**If you only have top_k problem:**
 - `fix_cursor_top_k.ps1`
 
-**Rate limit ama Gemini kullanmıyorsanız:**
-- `fix_cursor_rate_limit.ps1` (state database temizler)
+**Rate limit but not using Gemini:**
+- `fix_cursor_rate_limit.ps1` (clears state database)
 
-### Dosya boyutu büyüdü, ne yapmalıyım?
+### File size increased, what should I do?
 
-**Sorun:** Encoding hatası - UTF-8 BOM eklendi.
+**Problem:** Encoding error - UTF-8 BOM added.
 
-**Çözüm:**
-1. Yedeği geri yükleyin
-2. `bypass_gemini_safe.ps1` kullanın (binary-safe, dosya boyutu değişmez)
-3. Diğer scriptleri **KULLANMAYIN**
-
----
-
-## 💬 Destek
-
-Sorun mu yaşıyorsunuz? Yardıma ihtiyacınız mı var?
-
-- 🐛 **Bug Report**: [Issues](https://github.com/yourusername/cursor-fix-scripts/issues)
-- 💡 **Feature Request**: [Discussions](https://github.com/yourusername/cursor-fix-scripts/discussions)
-- 📧 **Email**: your.email@example.com
-- 💬 **Discord**: [Join our server](https://discord.gg/yourserver)
+**Solution:**
+1. Restore backup
+2. Use `bypass_gemini_safe.ps1` (binary-safe, file size doesn't change)
+3. **DON'T USE** other scripts
 
 ---
 
-## 🙏 Teşekkürler
+## 💬 Support
 
-Bu scriptleri kullandığınız için teşekkürler! Eğer işinize yaradıysa:
+Having problems? Need help?
 
-- ⭐ Repo'ya star verin
-- 🔄 Arkadaşlarınızla paylaşın
-- 🐛 Sorunları bildirin
-- 🤝 Katkıda bulunun
+- 🐛 **Bug Report**: [Issues](https://github.com/IamYGT/cursor-fix-scripts/issues)
+- 💡 **Feature Request**: [Discussions](https://github.com/IamYGT/cursor-fix-scripts/discussions)
+- 📧 **Email**: Open an issue on GitHub
 
 ---
 
-## 📄 Lisans
+## 🙏 Thanks
 
-MIT License - detaylar için [LICENSE](LICENSE) dosyasına bakın.
+Thanks for using these scripts! If they helped you:
+
+- ⭐ Star the repo
+- 🔄 Share with friends
+- 🐛 Report issues
+- 🤝 Contribute
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -729,6 +682,6 @@ MIT License - detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 **Made with ❤️ by developers, for developers**
 
-[⬆ Başa Dön](#-cursor-ide-fix-scripts)
+[⬆ Back to Top](#-cursor-ide-fix-scripts)
 
 </div>
