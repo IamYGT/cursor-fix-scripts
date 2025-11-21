@@ -1,0 +1,29 @@
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Backup files
+*.backup
+*.backup_*
+*.bak
+
+# Logs
+*.log
+
+# PowerShell
+*.ps1xml
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Cache
+cursor_*_backup_*/
