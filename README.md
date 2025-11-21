@@ -657,7 +657,8 @@ Having problems? Need help?
 
 - 🐛 **Bug Report**: [Issues](https://github.com/IamYGT/cursor-fix-scripts/issues)
 - 💡 **Feature Request**: [Discussions](https://github.com/IamYGT/cursor-fix-scripts/discussions)
-- 📧 **Email**: Open an issue on GitHub
+- 📧 **Email**: iamygt.dev@gmail.com
+- 📸 **Instagram**: [@ercanygt.dev](https://instagram.com/ercanygt.dev)
 
 ---
 
@@ -680,7 +681,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 <div align="center">
 
-**Made with ❤️ by developers, for developers**
+**Made with ❤️ by [@IamYGT](https://github.com/IamYGT)**
+
+📧 iamygt.dev@gmail.com | 📸 [@ercanygt.dev](https://instagram.com/ercanygt.dev)
 
 [⬆ Back to Top](#-cursor-ide-fix-scripts)
 

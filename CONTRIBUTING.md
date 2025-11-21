@@ -167,5 +167,7 @@ Katkıda bulunduğunuz için teşekkürler! Her katkı önemlidir:
 ## 📞 İletişim
 
 Sorularınız için:
-- **Issues** - GitHub Issues bölümünü kullanın
-- **Discussions** - Genel tartışmalar için
+- **Issues**: [GitHub Issues](https://github.com/IamYGT/cursor-fix-scripts/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/IamYGT/cursor-fix-scripts/discussions)
+- **Email**: iamygt.dev@gmail.com
+- **Instagram**: [@ercanygt.dev](https://instagram.com/ercanygt.dev)

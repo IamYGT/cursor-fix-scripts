@@ -701,10 +701,10 @@ Mevcut scriptleri iyileştirmek için:
 
 Sorun mu yaşıyorsunuz? Yardıma ihtiyacınız mı var?
 
-- 🐛 **Bug Report**: [Issues](https://github.com/yourusername/cursor-fix-scripts/issues)
-- 💡 **Feature Request**: [Discussions](https://github.com/yourusername/cursor-fix-scripts/discussions)
-- 📧 **Email**: your.email@example.com
-- 💬 **Discord**: [Join our server](https://discord.gg/yourserver)
+- 🐛 **Bug Report**: [Issues](https://github.com/IamYGT/cursor-fix-scripts/issues)
+- 💡 **Feature Request**: [Discussions](https://github.com/IamYGT/cursor-fix-scripts/discussions)
+- 📧 **Email**: iamygt.dev@gmail.com
+- 📸 **Instagram**: [@ercanygt.dev](https://instagram.com/ercanygt.dev)
 
 ---
 
@@ -727,7 +727,9 @@ MIT License - detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 <div align="center">
 
-**Made with ❤️ by developers, for developers**
+**Made with ❤️ by [@IamYGT](https://github.com/IamYGT)**
+
+📧 iamygt.dev@gmail.com | 📸 [@ercanygt.dev](https://instagram.com/ercanygt.dev)
 
 [⬆ Başa Dön](#-cursor-ide-fix-scripts)
 
