@@ -1,0 +1,98 @@
+name: Reproducible script defect
+description: Report a local script failure with enough detail to reproduce it safely.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the scripts. Do not upload API keys, tokens, Cursor profile databases, workbench files, logs containing prompts, or unredacted personal paths.
+  - type: dropdown
+    id: script
+    attributes:
+      label: Script
+      options:
+        - fix_cursor_rate_limit.ps1
+        - fix_cursor_top_k.ps1
+        - bypass_gemini_safe.ps1
+        - install.ps1
+        - Other or unknown
+    validations:
+      required: true
+  - type: input
+    id: cursor-version
+    attributes:
+      label: Cursor version and channel
+      placeholder: "Example: 1.7.3 Stable"
+    validations:
+      required: true
+  - type: input
+    id: windows-version
+    attributes:
+      label: Windows version
+      placeholder: "Example: Windows 11 24H2"
+    validations:
+      required: true
+  - type: textarea
+    id: symptom
+    attributes:
+      label: Observed and expected behavior
+      description: State exactly what happened and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Closed Cursor and saved work.
+        2. Ran ...
+        3. Observed ...
+    validations:
+      required: true
+  - type: dropdown
+    id: target-path
+    attributes:
+      label: Did the documented target path exist?
+      options:
+        - "Yes"
+        - "No"
+        - Not checked
+    validations:
+      required: true
+  - type: dropdown
+    id: target-pattern
+    attributes:
+      label: Was the target pattern found?
+      options:
+        - "Yes"
+        - "No"
+        - Not applicable
+        - Not checked
+    validations:
+      required: true
+  - type: dropdown
+    id: backup
+    attributes:
+      label: Backup result
+      options:
+        - Backup created
+        - Backup was not created
+        - Not applicable
+        - Not checked
+    validations:
+      required: true
+  - type: textarea
+    id: redacted-output
+    attributes:
+      label: Redacted console output
+      description: Paste only the smallest relevant output after removing secrets, prompts, identifiers, and personal paths.
+      render: shell
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I saved my work and closed Cursor before running a script that can stop or modify it.
+          required: true
+        - label: This report contains no secrets, profile databases, proprietary workbench files, prompts, or unredacted personal paths.
+          required: true

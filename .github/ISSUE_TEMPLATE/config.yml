@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Cursor compatibility tracking
+    url: https://github.com/IamYGT/cursor-fix-scripts/issues/2
+    about: Add reproducible version evidence to the existing compatibility-matrix issue.
+  - name: Questions and compatibility discussion
+    url: https://github.com/IamYGT/cursor-fix-scripts/discussions
+    about: Ask usage questions or discuss unverified Cursor-version behavior.
+  - name: Private security report
+    url: https://github.com/IamYGT/cursor-fix-scripts/security/policy
+    about: Follow the security policy instead of publishing sensitive details.
