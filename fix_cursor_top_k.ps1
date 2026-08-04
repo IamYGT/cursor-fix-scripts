@@ -1,11 +1,13 @@
 # Script to remove top_k parameter from Cursor's Google API calls
 $workbenchPath = "$env:LOCALAPPDATA\Programs\cursor\resources\app\out\vs\workbench\workbench.desktop.main.js"
 
-Write-Host "Creating backup..." -ForegroundColor Yellow
-Copy-Item -Path $workbenchPath -Destination "$workbenchPath.backup" -Force
+if (-not (Test-Path -LiteralPath $workbenchPath -PathType Leaf)) {
+    throw "Workbench file not found: $workbenchPath"
+}
 
 Write-Host "Reading file..." -ForegroundColor Yellow
-$content = Get-Content -Path $workbenchPath -Raw -Encoding UTF8
+$content = Get-Content -LiteralPath $workbenchPath -Raw -Encoding UTF8
+$originalContent = $content
 
 Write-Host "Original file size: $($content.Length) bytes" -ForegroundColor Cyan
 
@@ -24,9 +26,17 @@ $content = $content -replace $pattern2, '{'
 $pattern3 = '{\s*top_k\s*:\s*[^}]+\s*}'
 $content = $content -replace $pattern3, '{}'
 
+if ($content -ceq $originalContent) {
+    Write-Warning "No supported top_k pattern found; no files changed."
+    return
+}
+
+Write-Host "Creating backup..." -ForegroundColor Yellow
+Copy-Item -LiteralPath $workbenchPath -Destination "$workbenchPath.backup" -Force
+
 Write-Host "Modified file size: $($content.Length) bytes" -ForegroundColor Cyan
 Write-Host "Writing modified file..." -ForegroundColor Yellow
-Set-Content -Path $workbenchPath -Value $content -Encoding UTF8 -NoNewline
+Set-Content -LiteralPath $workbenchPath -Value $content -Encoding UTF8 -NoNewline
 
 Write-Host "Done! Restart Cursor to apply changes." -ForegroundColor Green
 Write-Host "Backup saved at: $workbenchPath.backup" -ForegroundColor Green

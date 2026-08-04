@@ -2,7 +2,9 @@
 
 [English README](README.md) | [Guvenlik politikasi](SECURITY.md) | [MIT Lisansi](LICENSE)
 
-> **Durum: deneysel ve desteksiz.** Depodaki son commit 2025-11-22 tarihlidir. Depoda CI, otomatik test paketi veya Cursor sürüm uyumluluk matrisi yoktur. Her betiği inceleyin; yalnızca yedekli ya da kaybetmeyi göze alabildiğiniz yerel Cursor kurulumunda kullanın.
+[![Test](https://github.com/IamYGT/cursor-fix-scripts/actions/workflows/test.yml/badge.svg)](https://github.com/IamYGT/cursor-fix-scripts/actions/workflows/test.yml)
+
+> **Durum: deneysel ve desteksiz.** Geçici test verileri Windows CI üzerinde doğrulanır; ancak güncel Cursor sürümleri için doğrulanmış uyumluluk matrisi yoktur. Her betiği inceleyin; yalnızca yedekli ya da kaybetmeyi göze alabildiğiniz yerel Cursor kurulumunda kullanın.
 
 ## Bu depo ne yapar, ne yapmaz
 
@@ -17,7 +19,7 @@ Sağlayıcı tarafındaki `429`, kota veya hesap sınırı bu betiklerle aşıla
 | `fix_cursor_rate_limit.ps1` | `state.vscdb` dosyasını yedekler, siler; Cursor `Cache` ve `Code Cache` klasörlerini özyinelemeli siler. | Yerel workbench durumunu/önbelleği sıfırlar; önbellek içeriği **yedeklenmez**. |
 | `fix_cursor_top_k.ps1` | Cursor `workbench.desktop.main.js` dosyasını yedekler, sonra seçili `top_k` özelliklerini regex ile kaldırır. | Kurulu uygulama paketini değiştirir. Yedek adı sabittir; sonraki çalıştırmada üzerine yazılabilir. |
 | `bypass_gemini_safe.ps1` | Aynı workbench dosyasında seçili yerel `429` karşılaştırmalarını `999` ile değiştirir ve zaman damgalı yedek oluşturur. | Yalnızca yerel hata işleme davranışını değiştirir; sağlayıcı sınırını aşmaz, hataları gizleyebilir veya değiştirebilir. |
-| `install.ps1` | Cursor'u zorla kapatır, ardından üç betiği sırayla çalıştırır. | İşlem bütünsel değildir; bir alt betik başarısız olursa önceki değişiklikleri geri almaz. |
+| `install.ps1` | Varsayılan olarak çalışmayı reddeder; `-ApplyAll` üç betiği açıkça sırayla çalıştırır. | İşlem bütünsel değildir; bir alt betik başarısız olursa önceki değişiklikleri geri almaz. |
 
 `remove_gemini_rate_limit.ps1` bu depoda yoktur. Eski belgelerdeki bu başvuru yanlıştı.
 
@@ -55,7 +57,18 @@ Yukarıdaki kontrollerden sonra yalnızca **bir** betik çalıştırın:
 .\bypass_gemini_safe.ps1     # yerel 429 işleme yaması; kota aşma yöntemi değildir
 ```
 
-`install.ps1` bütün betikleri çalıştırır ve rutin kullanım için önerilmez. Desenin eşleştiğini, Cursor'un sonra açıldığını veya üst hizmet hatasının çözüldüğünü doğrulamaz.
+`install.ps1`, `-ApplyAll` verilmeden değişiklik yapmaz ve rutin kullanım için önerilmez. Açık seçimle çalıştırıldığında desenin eşleştiğini, Cursor'un sonra açıldığını veya üst hizmet hatasının çözüldüğünü doğrulamaz.
+
+## Testler
+
+Pester paketi `LOCALAPPDATA`, `APPDATA` ve `USERPROFILE` yollarını geçici test verilerine yönlendirir ve Cursor süreç keşfini taklit eder. Sözdizimi, yedek oluşturma, sınırlı dosya değişikliği, önbellek kapsamı, doğru çıktı ve kurucunun varsayılan değişiklik yapmama davranışı doğrulanır. Gerçek Cursor kurulumu hedeflenmez.
+
+```powershell
+Install-Module Pester -RequiredVersion 6.0.1 -Scope CurrentUser
+Invoke-Pester -Path tests -CI -Output Detailed
+```
+
+GitHub Actions aynı komutu `windows-latest` üzerinde çalıştırır. Değişiklik yapmadan önce [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını okuyun.
 
 ## Yedekler ve kurtarma
 

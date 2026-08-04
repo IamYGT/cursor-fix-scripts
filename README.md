@@ -2,7 +2,9 @@
 
 [Turkce README](README.tr.md) | [Security policy](SECURITY.md) | [MIT License](LICENSE)
 
-> **Status: experimental and unsupported.** The latest repository commit is dated 2025-11-22. This repository contains no CI, automated test suite, or Cursor-version compatibility matrix. Review every script and use it only on a disposable or backed-up local Cursor installation.
+[![Test](https://github.com/IamYGT/cursor-fix-scripts/actions/workflows/test.yml/badge.svg)](https://github.com/IamYGT/cursor-fix-scripts/actions/workflows/test.yml)
+
+> **Status: experimental and unsupported.** Disposable-fixture tests run on Windows CI, but there is no verified current Cursor-version compatibility matrix. Review every script and use it only on a disposable or backed-up local Cursor installation.
 
 ## What this repository is—and is not
 
@@ -17,7 +19,7 @@ A provider-side `429`, quota, or account limit cannot be bypassed by these scrip
 | `fix_cursor_rate_limit.ps1` | Backs up `state.vscdb`, deletes that database, and recursively deletes Cursor `Cache` and `Code Cache`. | Resets local workbench state/cache; cache contents are **not** backed up. |
 | `fix_cursor_top_k.ps1` | Backs up then regex-edits Cursor's `workbench.desktop.main.js` to remove selected `top_k` properties. | Modifies an installed application bundle. The backup name is fixed and may be overwritten on a later run. |
 | `bypass_gemini_safe.ps1` | Timestamp-backs up then replaces selected local `429` comparisons with `999` in the same workbench file. | Alters local error handling only; it does not bypass provider limits and may hide or change failures. |
-| `install.ps1` | Force-stops Cursor, then runs all three scripts in sequence. | Not transactional; a failure in one child script does not restore earlier changes. |
+| `install.ps1` | Refuses to run by default; `-ApplyAll` explicitly runs all three scripts in sequence. | Not transactional; a failure in one child script does not restore earlier changes. |
 
 `remove_gemini_rate_limit.ps1` is not in this repository. Older documentation that referenced it was incorrect.
 
@@ -55,7 +57,18 @@ Run **one** script only after the checks above:
 .\bypass_gemini_safe.ps1     # local 429-handling patch; not a quota bypass
 ```
 
-`install.ps1` runs every script and is intentionally not recommended for routine use. It does not validate whether a pattern matched, whether Cursor starts afterward, or whether an upstream error is resolved.
+`install.ps1` makes no changes without `-ApplyAll` and is intentionally not recommended for routine use. With explicit opt-in, it does not validate whether a pattern matched, whether Cursor starts afterward, or whether an upstream error is resolved.
+
+## Tests
+
+The Pester suite redirects `LOCALAPPDATA`, `APPDATA`, and `USERPROFILE` into disposable fixtures and mocks Cursor process discovery. It checks parser validity, backup creation, scoped file mutation, cache containment, truthful output, and the installer's default no-op behavior. It never targets a real Cursor installation.
+
+```powershell
+Install-Module Pester -RequiredVersion 6.0.1 -Scope CurrentUser
+Invoke-Pester -Path tests -CI -Output Detailed
+```
+
+GitHub Actions runs the same command on `windows-latest`. See [CONTRIBUTING.md](CONTRIBUTING.md) before changing mutation behavior.
 
 ## Backups and recovery
 
